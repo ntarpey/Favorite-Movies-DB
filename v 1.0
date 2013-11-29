@@ -1,0 +1,57 @@
+=begin
+A database of the best movies I've ever seen, and a rating scale of 1-10, 10 being the best.
+
+Note: this will only work in newer version of Ruby.
+=end
+
+movies = {gravity: 9, good_will_hunting: 7, children_of_men: 7, the_sting: 9, carriers: 8, martyrs: 7, chaser: 7, oldboy: 8, i_saw_the_devil: 7, the_man_from_nowhere: 7, the_comedy: 8, twenty_eight_days_later: 9, the_descent: 8, the_hangover: 8, reservoir_dogs: 7, pulp_fiction: 8, django_unchained: 8, trainspotting: 7, the_holy_mountain: 7, the_game: 8, frontiers: 7, the_matrix: 8, rosemarys_baby: 6, barbarians_at_the_gate: 7, pi: 8, the_shining: 8, chinatown: 7, haywire: 7, groundhog_day: 9, stepbrothers: 8, its_a_wonderful_life: 10}
+
+puts "Make a selection: type add, update, display, or delete"
+choice = gets.chomp
+
+case choice
+when "add"
+    puts "What is the movie's title?"
+    title = gets.chomp
+    puts "What is it's rating, on a scale of 1-10?"
+    rating = gets.chomp
+    if movies[title.to_sym] == nil
+        movies[title.to_sym] = rating.to_i
+        puts "#{title}, rated #{rating} was added to the database"
+    else
+        puts "That movie already exists in the db, so I won't add it in again.  Select update to overwrite an existing entry."
+    end
+        
+    
+when "update"
+    puts "Update which movie?"
+    title = gets.chomp
+    if movies[title.to_sym] == nil
+        puts "This one's not in our db yet...add a rating?"
+        rating = gets.chomp
+        movies[title.to_sym] = rating.to_i
+        puts "#{title}, rated #{rating} was added to the database"
+    else
+        puts "This movie is already exists in the db, rated #{movies[title.to_sym]}, shall we update it?"
+        rating = gets.chomp
+        movies[title.to_sym] = rating.to_i
+        puts "#{title}, with updated rated #{rating} was updated in the database"
+    end
+        
+when "display"
+    movies.each do |movie, rating|
+        puts "#{movie}: #{rating}"
+    end
+when "delete"
+    puts "Delete which movie?"
+    title = gets.chomp
+    if movies[title.to_sym] == nil
+        puts "Error! Movie not found in our database!"
+    else
+        movies[title.to_sym].delete
+        puts "This movie has been deleted."
+    end
+else
+    puts "Error!"
+end
+
